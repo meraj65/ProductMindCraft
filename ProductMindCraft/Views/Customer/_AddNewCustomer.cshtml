@@ -1,0 +1,121 @@
+﻿@model ProductMindCraft.Models.Customer
+<style>
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+</style>
+<div>
+    <form id="formCustomerDetails">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="card-body">
+            <div class="row">
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Customer Name <code>*</code></label>
+                        <input type="text" id="CustomerName" class="form-control" placeholder="Enter Customer Name" maxlength="25" autocomplete="off" />
+                        <span class="text-danger Validatetxt" id="CustomerNameVal" style="display:none;">Customer Name is Required</span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Aadhaar Number <code>*</code></label>
+                        <input type="text"onkeypress="return isNumberKey(event)"  id="AadhaarNumber" class="form-control" placeholder="Enter Aadhaar Number" maxlength="12" onblur="validateAadhaar()" autocomplete="off" pattern="\d{12}" title="Enter a valid 12-digit Aadhaar number" />
+                        <span class="text-danger Validatetxt" id="AadhaarNumberVal" style="display:none;">Aadhaar Number is Required</span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Email <code>*</code></label>
+                        <input type="email" id="Email" class="form-control" placeholder="Enter Email" maxlength="100" autocomplete="off" />
+                        <span class="text-danger Validatetxt" id="EmailVal" style="display:none;">Email is Required</span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Phone Number <code>*</code></label>
+                        <input type="text" onkeypress="return isNumberKey(event)"  id="PhoneNumber" class="form-control" placeholder="Enter Phone Number" maxlength="10" autocomplete="off" pattern="\d{10}" title="Enter a valid 10-digit phone number" />
+                        <span class="text-danger Validatetxt" id="PhoneNumberVal" style="display:none;">Phone Number is Required</span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Address Line 1<code>*</code></label>
+                        <input type="text" id="AddressLine1" class="form-control" placeholder="Enter Address Line 1" maxlength="200" autocomplete="off" />
+                        <span class="text-danger Validatetxt" id="AddressVal" style="display:none;">Address is Required</span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Address Line 2</label>
+                        <input type="text" id="AddressLine2" class="form-control" placeholder="Enter Address Line 2" maxlength="200" autocomplete="off" />
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Country">Country<code>*</code></label>
+                        <select id="countryDropdown" asp-for="Country" class="form-control">
+                            <option value="">Select Country</option>
+                            <option value="India">India</option>
+                            <option value="USA">USA</option>
+                        </select>
+                        <span class="text-danger Validatetxt" id="CountryVal" style="display:none;">Country is Required</span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="State">State<code>*</code></label>
+                        <select id="stateDropdown" asp-for="State" class="form-control">
+                            <option value="">Select State</option>
+                        </select>
+                        <span class="text-danger Validatetxt" id="StateVal" style="display:none;">State is Required</span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Gender">Gender<code>*</code></label>
+                        <select id="Gender" class="form-control">
+                            <option value="">Select Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        <span class="text-danger Validatetxt" id="GenderVal" style="display:none;">Gender is Required</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    const countryStates = {
+        "India": ["Maharashtra", "Karnataka", "Delhi", "Gujarat"],
+        "USA": ["California", "New York", "Texas", "Florida"]
+    };
+
+    document.getElementById('countryDropdown').addEventListener('change', function () {
+        const country = this.value;
+        const stateDropdown = document.getElementById('stateDropdown');
+
+        stateDropdown.innerHTML = '<option value="">Select State</option>';
+
+        if (countryStates[country]) {
+            countryStates[country].forEach(state => {
+                const option = document.createElement('option');
+                option.value = state;
+                option.textContent = state;
+                stateDropdown.appendChild(option);
+            });
+        }
+    });
+</script>
