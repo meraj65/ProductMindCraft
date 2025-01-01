@@ -97,25 +97,3 @@
         </div>
     </form>
 </div>
-<script>
-    const countryStates = {
-        "India": ["Maharashtra", "Karnataka", "Delhi", "Gujarat"],
-        "USA": ["California", "New York", "Texas", "Florida"]
-    };
-
-    document.getElementById('countryDropdown').addEventListener('change', function () {
-        const country = this.value;
-        const stateDropdown = document.getElementById('stateDropdown');
-
-        stateDropdown.innerHTML = '<option value="">Select State</option>';
-
-        if (countryStates[country]) {
-            countryStates[country].forEach(state => {
-                const option = document.createElement('option');
-                option.value = state;
-                option.textContent = state;
-                stateDropdown.appendChild(option);
-            });
-        }
-    });
-</script>

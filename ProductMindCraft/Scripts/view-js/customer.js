@@ -371,7 +371,7 @@ function initializeCountryStateDropdown() {
     });
 }
 
-initializeCountryStateDropdown();
+//initializeCountryStateDropdown();
 function updateCustomer(customerId) {
     const customerData = {
         CustomerId: customerId,
@@ -393,16 +393,20 @@ function updateCustomer(customerId) {
         data: JSON.stringify(customerData),
         success: function (response) {
             if (response.success) {
-                alert("Customer updated successfully.");
-                $("#modal-AddEditCustomer").modal("hide");
-                loadCustomerProject();
-            } else {
                 Swal.fire({
                     position: "center",
                     icon: "success",
                     title: "Customer Updated Successfully",
                     showConfirmButton: false,
                     timer: 2000
+                });
+                $("#modal-AddEditCustomer").modal("hide");
+                loadCustomerProject();
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: response.responseMessage
                 });
                 loadCustomerProject(1);
             }
@@ -445,7 +449,6 @@ function attachEmailValidation() {
 
     if (emailInput) {
         emailInput.addEventListener('input', function () {
-            // Regex pattern for basic email validation
             const validEmailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
             if (!validEmailPattern.test(this.value)) {
